@@ -1,0 +1,36 @@
+# Created by https://www.toptal.com/developers/gitignore/api/wintersmith,visualstudiocode
+# Edit at https://www.toptal.com/developers/gitignore?templates=wintersmith,visualstudiocode
+
+### Projects
+client/node_modules
+server/node_modules
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+.ionide
+
+### Wintersmith ###
+contents/
+node_modules/
+plugins/
+templates/
+config.json
+package.json
+
+
+# End of https://www.toptal.com/developers/gitignore/api/wintersmith,visualstudiocode
