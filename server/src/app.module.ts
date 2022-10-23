@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './auth/auth.module';
 import { UserEntity } from './users/models/entities/user.entities';
 import { UserModule } from './users/user.module';
 
@@ -19,7 +20,9 @@ import { UserModule } from './users/user.module';
       entities: [UserEntity],
       autoLoadEntities: true,
       synchronize: true
-    }), UserModule
+    }),
+    UserModule,
+    AuthModule
   ],
   controllers: [],
   providers: [],
