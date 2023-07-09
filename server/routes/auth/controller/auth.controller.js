@@ -2,11 +2,15 @@ import { authService } from "../service/auth.service.js"
 
 class AuthController {
   registration(req, res) {
-    return res.send("Hello auth")
+    return authService.registration(req, res)
   }
 
   login(req, res) {
-    return res.send("Hello Login")
+    return authService.login(req, res)
+  }
+
+  getProfile(req, res) {
+    return authService.getProfile(req, res)
   }
 }
 

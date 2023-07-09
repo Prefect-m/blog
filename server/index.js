@@ -1,4 +1,4 @@
-import express, { json } from "express"
+import express from "express"
 import dotEnv from "dotenv"
 import cors from "cors"
 import { dbConnect } from "./config/db.js"
