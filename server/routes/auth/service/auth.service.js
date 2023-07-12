@@ -76,7 +76,7 @@ class AuthService {
 
   async generateAccessToken(payload) {
     const token = jwt.sign({ user: payload }, process.env.JWT_SECRET_KEY, {
-      expiresIn: "1800s",
+      expiresIn: "1h",
     })
     return token
   }

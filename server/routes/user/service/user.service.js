@@ -7,10 +7,6 @@ class UserService {
     this.salt = 10
   }
 
-  async helloUser(req, res) {
-    res.send("Hello User")
-  }
-
   /**
    * @param {@username: String}
    * @returns user
@@ -26,7 +22,7 @@ class UserService {
 
   /**
    *
-   * @param {@password: String} password
+   * @param password
    * @returns hashPassword by BycryptJs
    */
   async hashPassword(password) {
