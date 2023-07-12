@@ -1,16 +1,35 @@
 import { authService } from "../service/auth.service.js"
 
 class AuthController {
-  registration(req, res) {
-    return authService.registration(req, res)
+  async registration(req, res, next) {
+    try {
+      const user = req.body
+      return await authService.registration(user)
+    } catch (err) {
+      next(err)
+    }
   }
 
-  login(req, res) {
-    return authService.login(req, res)
+  async login(req, res, next) {
+    try {
+      const userData = req.body
+      const { message, accessToken, user } = await authService.login(userData)
+      res.json({
+        message: message,
+        accessToken,
+        user,
+      })
+    } catch (err) {
+      next(err)
+    }
   }
 
-  getProfile(req, res) {
-    return authService.getProfile(req, res)
+  async getProfile(req, res) {
+    const user = req.user
+    const userData = await authService.getProfile(user)
+    res.status(200).json({
+      userData,
+    })
   }
 }
 

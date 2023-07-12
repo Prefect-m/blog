@@ -3,6 +3,8 @@ import dotEnv from "dotenv"
 import cors from "cors"
 import { dbConnect } from "./config/db.js"
 import router from "./routes/index.js"
+import { errorMiddleware } from "./middleware/errorMiddleware.js"
+// import { AppError } from "./errors/AppError.js"
 
 dotEnv.config()
 const app = express()
@@ -13,6 +15,7 @@ app.use(express.json())
 
 // ROUTES
 app.use("/api", router)
+app.use(errorMiddleware)
 
 const start = async () => {
   try {
