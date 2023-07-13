@@ -6,7 +6,9 @@ export const Layout = () => {
   return (
     <div>
       <Navbar />
-      <Outlet />
+      <div className="container mx-auto">
+        <Outlet />
+      </div>
     </div>
   )
 }
