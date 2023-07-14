@@ -32,8 +32,19 @@ class AuthService {
         password: passHashed,
       })
       await newUser.save()
+
+      const payload = {
+        id: newUser._id,
+        username: newUser.username,
+        email: newUser.email,
+      }
+
+      const accessToken = await this.generateAccessToken(payload)
+
       return {
         message: SUCCESS_MESSAGE,
+        newUser,
+        accessToken,
       }
     }
   }

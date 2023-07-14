@@ -4,9 +4,13 @@ class AuthController {
   async registration(req, res, next) {
     try {
       const user = req.body
-      const { message } = await authService.registration(user)
+      const { accessToken, message, newUser } = await authService.registration(
+        user
+      )
       res.status(200).json({
+        accessToken,
         message,
+        user: newUser,
       })
     } catch (err) {
       next(err)
