@@ -1,44 +1,30 @@
 import React, { useEffect } from "react"
-import { Route, Routes, useLocation } from "react-router-dom"
-import { Layout } from "./components"
-import {
-  AddPostPage,
-  EditPostPage,
-  HomePage,
-  LoginPage,
-  NotFoundPage,
-  PostPage,
-  PostsPage,
-  RegisterPage,
-} from "./pages"
-import { useActions } from "./hooks/useActions"
+import { Routes, Route } from "react-router-dom"
 import { ToastContainer } from "react-toastify"
-import { useActionState } from "./hooks/useSelector"
+import { Layout } from "./layout/Layout"
+import { Home, Post, Posts, Login, Register, NotFound } from "./pages"
+import { useAppActions } from "./hooks/useAppActions"
 
-const App = () => {
-  const location = useLocation()
-  const { auth } = useActionState()
-
-  const { getProfile } = useActions()
+export const App = () => {
+  const { getProfile } = useAppActions()
 
   useEffect(() => {
     if (window.localStorage.getItem("accessToken")) {
       getProfile()
     }
-  }, [])
+    // eslint-disable-next-line
+  }, [window])
 
   return (
     <>
-      <Routes location={location} key={location.pathname}>
+      <Routes>
         <Route element={<Layout />}>
-          <Route index path="/" element={<HomePage />} />
-          <Route path="posts" element={<PostsPage />} />
-          <Route path="post/:id" element={<PostPage />} />
-          <Route path="post/add" element={<AddPostPage />} />
-          <Route path="post/edit/:id" element={<EditPostPage />} />
-          <Route path="user/login" element={<LoginPage />} />
-          <Route path="user/register" element={<RegisterPage />} />
-          <Route path="*" element={<NotFoundPage />} />
+          <Route index path="/" element={<Home />} />
+          <Route path="posts" element={<Posts />} />
+          <Route path="post/:id" element={<Post />} />
+          <Route path="auth/login" element={<Login />} />
+          <Route path="auth/register" element={<Register />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
       <ToastContainer
@@ -50,5 +36,3 @@ const App = () => {
     </>
   )
 }
-
-export default App

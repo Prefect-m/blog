@@ -1,9 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import {
-  getProfile,
-  loginUser,
-  registerNewUser,
-} from "../actions/auth/auth-action"
+import { getProfile, loginUser, registerNewUser } from "../actions/auth-actions"
 
 const initialSlice = {
   user: null,

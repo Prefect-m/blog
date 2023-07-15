@@ -30,7 +30,6 @@ node_modules/
 plugins/
 templates/
 config.json
-package.json
-
+uploads
 
 # End of https://www.toptal.com/developers/gitignore/api/wintersmith,visualstudiocode

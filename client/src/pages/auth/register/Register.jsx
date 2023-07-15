@@ -1,16 +1,15 @@
 import React, { useEffect } from "react"
 import { Field } from "../../../components"
 import { Link, useNavigate } from "react-router-dom"
-import { useActions } from "../../../hooks/useActions"
+import { useAppActions } from "../../../hooks/useAppActions"
+import { useAppSelector } from "../../../hooks/useAppSelector"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
-import { useActionState } from "../../../hooks/useSelector"
 
-export const RegisterPage = () => {
+export const Register = () => {
   const navigate = useNavigate()
-  const { registerNewUser } = useActions()
-  const { auth } = useActionState()
-  const TIME_OUT = 3000
+  const { registerNewUser } = useAppActions()
+  const { auth } = useAppSelector()
 
   const {
     handleSubmit,
@@ -26,9 +25,6 @@ export const RegisterPage = () => {
   const submitHandler = async (data) => {
     try {
       registerNewUser(data)
-      setTimeout(() => {
-        navigate("/")
-      }, TIME_OUT)
     } catch (err) {
       console.log(err)
     }
@@ -38,7 +34,7 @@ export const RegisterPage = () => {
     <div className="w-1/4 h-60 mx-auto mt-20">
       <h3 className="text-lg text-white text-center">Регистрация</h3>
       <div className="text-sm underline text-right">
-        <Link to={"/user/login"}>Войти</Link>
+        <Link to={"/auth/login"}>Войти</Link>
       </div>
       <form onSubmit={handleSubmit(submitHandler)}>
         <div className="flex flex-col gap-y-6">

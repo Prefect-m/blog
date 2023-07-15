@@ -1,11 +1,13 @@
 import React from "react"
 import { Link, NavLink } from "react-router-dom"
-import { useActionState } from "../../hooks/useSelector"
-import { useActions } from "../../hooks/useActions"
+import { useAppActions } from "../../hooks/useAppActions"
+import { useAppSelector } from "../../hooks/useAppSelector"
+// import { useActionState } from "../../hooks/useSelector"
+// import { useActions } from "../../hooks/useActions"
 
 export const Navbar = () => {
-  const { auth } = useActionState()
-  const { logout } = useActions()
+  const { logout } = useAppActions()
+  const { auth } = useAppSelector()
 
   const clickHandler = () => {
     logout()
@@ -88,6 +90,7 @@ export const Navbar = () => {
             <span className="text-sm underline">{auth.user.username}</span>
           </div>
         )}
+
         {auth.isAuth ? (
           <button
             onClick={clickHandler}
@@ -98,7 +101,7 @@ export const Navbar = () => {
         ) : (
           <Link
             className="hover:text-yellow-100 px-4 py-2 bg-gray-600"
-            to={"/user/login"}
+            to={"/auth/login"}
           >
             Войти
           </Link>
