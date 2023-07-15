@@ -3,14 +3,14 @@ import { authService } from "../service/auth.service.js"
 class AuthController {
   async registration(req, res, next) {
     try {
-      const user = req.body
-      const { accessToken, message, newUser } = await authService.registration(
-        user
+      const userData = req.body
+      const { accessToken, message, user } = await authService.registration(
+        userData
       )
       res.status(200).json({
         accessToken,
         message,
-        user: newUser,
+        user,
       })
     } catch (err) {
       next(err)

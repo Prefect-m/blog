@@ -1,8 +1,16 @@
 import React from "react"
 import { Link, NavLink } from "react-router-dom"
+import { useActionState } from "../../hooks/useSelector"
+import { useActions } from "../../hooks/useActions"
 
 export const Navbar = () => {
-  const isAuth = false
+  const { auth } = useActionState()
+  const { logout } = useActions()
+
+  const clickHandler = () => {
+    logout()
+    window.localStorage.removeItem("accessToken")
+  }
 
   return (
     <div className="flex py-4 justify-between items-center px-10">
@@ -15,7 +23,7 @@ export const Navbar = () => {
           <NavLink
             className="text-xs text-gray-700 hover:text-white"
             to="/"
-            style={({ isActive, isPending }) => {
+            style={({ isActive }) => {
               return {
                 fontWeight: isActive ? "bold" : "",
                 color: isActive ? "red" : "black",
@@ -29,7 +37,7 @@ export const Navbar = () => {
           <NavLink
             to="/posts"
             className="text-xs text-gray-700 hover:text-white"
-            style={({ isActive, isPending }) => {
+            style={({ isActive }) => {
               return {
                 fontWeight: isActive ? "bold" : "",
                 color: isActive ? "red" : "black",
@@ -39,13 +47,13 @@ export const Navbar = () => {
             Посты
           </NavLink>
         </li>
-        {isAuth && (
+        {auth.isAuth && (
           <>
             <li>
               <NavLink
                 to="/post/add"
                 className="text-xs text-gray-700 hover:text-white"
-                style={({ isActive, isPending }) => {
+                style={({ isActive }) => {
                   return {
                     fontWeight: isActive ? "bold" : "",
                     color: isActive ? "red" : "black",
@@ -59,7 +67,7 @@ export const Navbar = () => {
               <NavLink
                 to="/user/posts"
                 className="text-xs text-gray-700 hover:text-white"
-                style={({ isActive, isPending }) => {
+                style={({ isActive }) => {
                   return {
                     fontWeight: isActive ? "bold" : "",
                     color: isActive ? "red" : "black",
@@ -73,11 +81,27 @@ export const Navbar = () => {
         )}
       </ul>
 
-      <div className="flex justify-center items-center bg-gray-600 text-xs text-white rounded-sm px-4 py-2">
-        {isAuth ? (
-          <button className="hover:text-yellow-100">Выйти</button>
+      <div className="flex justify-center items-center gap-x-3 text-xs text-white rounded-sm ">
+        {auth.isAuth && (
+          <div className="capitalize flex gap-x-3 items-center">
+            Профиль:
+            <span className="text-sm underline">{auth.user.username}</span>
+          </div>
+        )}
+        {auth.isAuth ? (
+          <button
+            onClick={clickHandler}
+            className="hover:text-yellow-100 px-4 py-2 bg-gray-600"
+          >
+            Выйти
+          </button>
         ) : (
-          <Link to={"/user/login"}>Войти</Link>
+          <Link
+            className="hover:text-yellow-100 px-4 py-2 bg-gray-600"
+            to={"/user/login"}
+          >
+            Войти
+          </Link>
         )}
       </div>
     </div>

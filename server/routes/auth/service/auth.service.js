@@ -43,7 +43,10 @@ class AuthService {
 
       return {
         message: SUCCESS_MESSAGE,
-        newUser,
+        user: {
+          username: newUser.username,
+          email: newUser.email,
+        },
         accessToken,
       }
     }

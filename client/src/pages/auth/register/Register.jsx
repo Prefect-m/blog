@@ -1,14 +1,17 @@
 import React, { useEffect } from "react"
 import { Field } from "../../../components"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useActions } from "../../../hooks/useActions"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
 import { useActionState } from "../../../hooks/useSelector"
 
 export const RegisterPage = () => {
+  const navigate = useNavigate()
   const { registerNewUser } = useActions()
   const { auth } = useActionState()
+  const TIME_OUT = 3000
+
   const {
     handleSubmit,
     register,
@@ -16,14 +19,16 @@ export const RegisterPage = () => {
   } = useForm({ mode: "onChange" })
 
   useEffect(() => {
-    if (auth.status) {
-      toast(auth.status)
-    }
-  }, [auth.status])
+    if (auth.status) toast(auth.status)
+    if (auth.isAuth) navigate("/")
+  }, [auth.status, auth.isAuth, navigate])
 
   const submitHandler = async (data) => {
     try {
       registerNewUser(data)
+      setTimeout(() => {
+        navigate("/")
+      }, TIME_OUT)
     } catch (err) {
       console.log(err)
     }
